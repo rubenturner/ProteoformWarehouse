@@ -4,12 +4,11 @@ import os
 import sys
 import csv
 import pprint
-import requests
+import requests 
 
 
 
-if os.path.isdir("resource_files") == False:
-    os.mkdir("resource_files")
+if os.path.isdir("resource_files") == True:
     os.chdir("resource_files")
 else:
     print("Error: Resource file folder could not be found.")
@@ -62,6 +61,7 @@ for x in range(0,len(tempcountdat)):
             button = 1
         if (button == 0) and (k == tempcountdat[x]-1): 
             keepdatathree = 'N/A'
+    
         
     tracker = tempcountdat[x]
     
@@ -137,6 +137,7 @@ for x in range(0,len(tempcountdattwo)):
         keepdatatemptwo.append(ptmkeepdatathree)
         keepdatatemptwo.append(ptmkeepdatafour)
         targetptmdata.append(keepdatatemptwo)
+
 
     trackertwo = tempcountdattwo[x]
 
@@ -372,6 +373,9 @@ for x in range(0,numaccessions):
     
     validdata.append(tempdata)
 
+
+os.chdir('..')
+
 if os.path.isdir("appended_xml_files") == False:
     os.mkdir("appended_xml_files")
     os.chdir("appended_xml_files")
@@ -380,6 +384,7 @@ else:
 
 
 if (len(sys.argv) < 2):
+    totaloutput = open("combined_file.xml", "w")
     for q in range(0,numaccessions):
         addonsub = []
         addonmod = []
@@ -442,10 +447,16 @@ if (len(sys.argv) < 2):
 
         for x in range(0,len(finalfile)):
             output.write(finalfile[x] + "\n")
+            totaloutput.write(finalfile[x] + "\n")
         output.close()
 
+        totaloutput.write("\n")
+
+    totaloutput.close()
+
 else:
-    for x in range(0,(len(sys.argv)-1)):
+    totaloutput = open("combined_file.xml", "w")
+    for x in range(1,len(sys.argv)):
         targetaccession = sys.argv[x].strip()
 
         for q in range(0,numaccessions):
@@ -511,84 +522,9 @@ else:
 
                 for x in range(0,len(finalfile)):
                     output.write(finalfile[x] + "\n")
+                    totaloutput.write(finalfile[x] + "\n")
                 output.close()
+                
+                totaloutput.write("\n")
 
-
-
-# Framework for hard-coded dictionary reference:
-# for q in range(0,numaccessions):
-#     if (numsubs[q]>0):
-#         for x in range(0,numsubs[q]):
-#             keyone = 'Hydroxylation'
-#             keytwo = 'Citrullination'
-#             keythree = 'Phosphorylation'
-#             keyfour = 'Carbamyl'
-#             keyfive = 'Ammonia' # Ammonia loss
-#             keysix = 'Acetylation'
-#             keyseven = 'Methylation'
-#             keyeight = 'Deamidation'
-#             keynine = 'Formylation'
-#             keyten = 'Succinylation'
-#             keyeleven = 'Hydroxybutyrylation'
-#             keytwelve = 'Magnesium'
-#             keythirteen = 'Sodium'
-#             keyfourteen = 'GG' # Ubiquitination site
-#             keyfifteen = 'Glutarylation'
-#             keysixteen = 'Dimethylation'
-#             keyseventeen = 'Trimethylation'
-#             keyeighteen = 'N6-dimethyllysine'
-#             keynineteen = 'N6-methyllysine'
-#             keytwenty = 'Fe[III]'
-
-
-#             if keyone in (moddata[q][x][0]):
-#                 # Hydroxylation on P
-#                 if 'P' in (moddata[q][x][1]):
-#                     moddata[q][x][0] = '3-hydroxyproline'
-#                 # Hydroxylation on N
-#                 if 'N' in (moddata[q][x][1]):
-#                     moddata[q][x][0] = ''
-#                  # Hydroxylation on K
-#                 if 'K' in (moddata[q][x][1]):
-#                     moddata[q][x][0] = ''
-            
-#             if keytwo in (moddata[q][x][0]):
-#                 moddata[q][x][0] = ''
-#             if keythree in (moddata[q][x][0]):
-#                 moddata[q][x][0] = ''
-#             if keyfour in (moddata[q][x][0]):
-#                 moddata[q][x][0] = ''
-#             if keyfive in (moddata[q][x][0]):
-#                 moddata[q][x][0] = ''
-#             if keysix in (moddata[q][x][0]):
-#                 moddata[q][x][0] = ''
-#             if keyseven in (moddata[q][x][0]):
-#                 moddata[q][x][0] = ''
-#             if keyeight in (moddata[q][x][0]):
-#                 moddata[q][x][0] = ''
-#             if keynine in (moddata[q][x][0]):
-#                 moddata[q][x][0] = ''
-#             if keyten in (moddata[q][x][0]):
-#                 moddata[q][x][0] = ''
-#             if keyeleven in (moddata[q][x][0]):
-#                 moddata[q][x][0] = ''
-#             if keytwelve in (moddata[q][x][0]):
-#                 moddata[q][x][0] = ''
-#             if keythirteen in (moddata[q][x][0]):
-#                 moddata[q][x][0] = ''
-#             if keyfourteen in (moddata[q][x][0]):
-#                 moddata[q][x][0] = ''
-#             if keyfifteen in (moddata[q][x][0]):
-#                 moddata[q][x][0] = ''
-#             if keysixteen in (moddata[q][x][0]):
-#                 moddata[q][x][0] = ''
-#             if keyseventeen in (moddata[q][x][0]):
-#                 moddata[q][x][0] = ''
-#             if keyeighteen in (moddata[q][x][0]):
-#                 moddata[q][x][0] = ''
-#             if keynineteen in (moddata[q][x][0]):
-#                 moddata[q][x][0] = ''
-#             if keytwenty in (moddata[q][x][0]):
-#                 moddata[q][x][0] = ''
-
-
+    totaloutput.close()
